@@ -1,5 +1,6 @@
 package com.example.productivityapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.productivityapp.databinding.ActivityMainBinding
@@ -12,7 +13,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.chronometerMainStopwatch.isCountDown = true
+        //binding.chronometerMainStopwatch.isCountDown = true
+
+        val intent = Intent(this, MemoryPi::class.java)
+        this.startActivity(intent)
 
     }
 }

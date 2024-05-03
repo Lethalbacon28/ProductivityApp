@@ -3,4 +3,5 @@
     <string name="editText">Edit Text</string>
     <string name="addLetter">Add Letter</string>
     <string name="removeLetter">Remove Letter</string>
+    <string name="fileName">memoryPiText</string>
 </resources>
