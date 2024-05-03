@@ -14,7 +14,9 @@ import java.io.FileNotFoundException
 class MemoryPi : AppCompatActivity() {
 
     private lateinit var binding: ActivityMemoryPiBinding
+
     private var newTextToMemorize = ""
+    private lateinit var currText: String
 
     companion object {
         val TAG = "memoryPi"
@@ -24,8 +26,6 @@ class MemoryPi : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoryPiBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
 
         binding.textViewMemoryPiTextMemorize.text =
@@ -41,6 +41,8 @@ class MemoryPi : AppCompatActivity() {
 
             "Hello! This is some filler text. Try pressing the add and remove letter buttons!"
         }
+
+        currText = binding.textViewMemoryPiTextMemorize.text.toString()
 
 
         binding.buttonMemoryPiEditText.setOnClickListener {
@@ -58,11 +60,25 @@ class MemoryPi : AppCompatActivity() {
                     writeToStorage(newTextToMemorize)
                     binding.textViewMemoryPiTextMemorize.text = newTextToMemorize
 
+
                 }
             )
             builder.setNegativeButton("Cancel", null)
 
             builder.show()
+        }
+
+        binding.buttonMemoryPiAddLetter.setOnClickListener {
+            val tempText = currText.split(" ")
+            for (s in tempText) {
+                s = s.last()
+            }
+
+
+        }
+
+        binding.buttonMemoryPiRemoveLetter.setOnClickListener {
+
         }
 
 
