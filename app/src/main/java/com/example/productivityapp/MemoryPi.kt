@@ -16,7 +16,8 @@ class MemoryPi : AppCompatActivity() {
     private lateinit var binding: ActivityMemoryPiBinding
 
     private var newTextToMemorize = ""
-    private lateinit var currText: String
+    private lateinit var fullText: String
+    private var numRemoved = 0
 
     companion object {
         val TAG = "memoryPi"
@@ -42,7 +43,7 @@ class MemoryPi : AppCompatActivity() {
             "Hello! This is some filler text. Try pressing the add and remove letter buttons!"
         }
 
-        currText = binding.textViewMemoryPiTextMemorize.text.toString()
+        fullText = binding.textViewMemoryPiTextMemorize.text.toString()
 
 
         binding.buttonMemoryPiEditText.setOnClickListener {
@@ -60,7 +61,6 @@ class MemoryPi : AppCompatActivity() {
                     writeToStorage(newTextToMemorize)
                     binding.textViewMemoryPiTextMemorize.text = newTextToMemorize
 
-
                 }
             )
             builder.setNegativeButton("Cancel", null)
@@ -69,16 +69,17 @@ class MemoryPi : AppCompatActivity() {
         }
 
         binding.buttonMemoryPiAddLetter.setOnClickListener {
-            val tempText = currText.split(" ")
-            for (s in tempText) {
-                s = s.last()
-            }
+            var tempText =
 
 
         }
 
         binding.buttonMemoryPiRemoveLetter.setOnClickListener {
-
+            var tempText = fullText.split(" ").toMutableList()
+            for (i in 0 until tempText.size) {
+                tempText[i] = (tempText[i].substring(0, tempText[i].length - 2))
+                numRemoved++;
+            }
         }
 
 
