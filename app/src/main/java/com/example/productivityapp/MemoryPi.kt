@@ -21,6 +21,10 @@ class MemoryPi : AppCompatActivity() {
     private lateinit var fullText: String
     private var numRemoved = 0
 
+    //val regexPunct = Regex("([?<=\\p{Punct}]|[?=\\p{Punct}])")
+
+    val regexPunct = Regex("(?<=[\\p{Punct} ])|(?=[\\p{Punct} ])")
+
     companion object {
         val TAG = "memoryPi"
     }
@@ -45,21 +49,6 @@ class MemoryPi : AppCompatActivity() {
             "Hello! This is some filler text. Try pressing the add and remove letter buttons!"
         }
 
-        fullText = binding.textViewMemoryPiTextMemorize.text.toString()
-        Log.d(TAG, "onCreate: $fullText")
-
-        val fullTextSplit = fullText.split(" ").toMutableList()
-        Log.d(TAG, "onCreate: $fullTextSplit")
-
-        var max = 0
-
-        for (i in fullTextSplit.indices) {
-            max = max(max, fullTextSplit[i].length)
-        }
-
-        val choppedFullText = fullTextSplit
-
-
         binding.buttonMemoryPiEditText.setOnClickListener {
 
             val builder = AlertDialog.Builder(this)
@@ -81,37 +70,60 @@ class MemoryPi : AppCompatActivity() {
             builder.show()
         }
 
+
+
+        fullText = binding.textViewMemoryPiTextMemorize.text.toString()
+
+        val fullTextSplit = fullText.split(regexPunct).toMutableList()
+        Log.d(TAG, "onCreate: $fullTextSplit")
+
+        var max = 0
+
+        for (i in fullTextSplit.indices) {
+            max = max(max, fullTextSplit[i].length)
+        }
+
+        val choppedFullText = fullTextSplit
+
+
         binding.buttonMemoryPiAddLetter.setOnClickListener {
-            for (i in 0 until choppedFullText.size) {
-                if (numRemoved <= fullTextSplit[i].length)
-                    choppedFullText[i] = fullTextSplit[i].substring(0,numRemoved+1) + "_".repeat(numRemoved+1)
-                }
-            if (numRemoved >= 0) {
+            if (numRemoved > 0) {
                 numRemoved--
             }
 
-            binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString(" ")
+            for (i in choppedFullText.indices) {
+                if (!choppedFullText[i].contains(regexPunct)) {
 
+                    if (numRemoved <= fullTextSplit[i].length) {
+                        choppedFullText[i] = fullTextSplit[i].substring(
+                            0,
+                            fullTextSplit[i].length - numRemoved
+                        ) + "_".repeat(numRemoved)
+                    }
+                }
+            }
+
+            binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
         }
 
         binding.buttonMemoryPiRemoveLetter.setOnClickListener {
-            if (numRemoved <= max) {
+            if (numRemoved < max) {
                 numRemoved++
             }
 
-            for (i in 0 until choppedFullText.size) {
-                if (numRemoved <= choppedFullText[i].length) {
-                    choppedFullText[i].replaceRange(
-                        choppedFullText[i].length - numRemoved - 1,
-                        choppedFullText[i].length,
-                        "_".repeat(numRemoved + 1)
-                    )
+            for (i in choppedFullText.indices) {
+                if (!choppedFullText[i].contains(regexPunct)) {
+                    if (numRemoved <= choppedFullText[i].length) {
+                        choppedFullText[i] = fullTextSplit[i].substring(
+                            0,
+                            fullTextSplit[i].length - numRemoved
+                        ) + "_".repeat(numRemoved)
+                    }
                 }
             }
 
-
-            binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString(" ")
+            binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
         }
 
