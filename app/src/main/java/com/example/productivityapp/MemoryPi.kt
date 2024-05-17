@@ -24,7 +24,7 @@ class MemoryPi : AppCompatActivity() {
 
     //val regexPunct = Regex("([?<=\\p{Punct}]|[?=\\p{Punct}])")
 
-    val regexPunct = Regex("(?<=[\\p{Punct} &&[^_]])|(?=[\\p{Punct} &&[^_]])")
+    val regexPunct = Regex("(?<=[\\p{Punct} \\n&&[^_]])|(?=[\\p{Punct} \\n&&[^_]])")
 
     companion object {
         val TAG = "memoryPi"
@@ -34,6 +34,8 @@ class MemoryPi : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoryPiBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.constraintLayoutMemoryPiLayout.setBackgroundColor(getColor(R.color.backgroundMemoryPi))
 
         //read the text and transfer to textView
         binding.textViewMemoryPiTextMemorize.text =
@@ -98,7 +100,7 @@ class MemoryPi : AppCompatActivity() {
 
                 //consider refactoring this code into its own method
                 for (i in choppedFullText.indices) {
-                    if (!choppedFullText[i].contains(regexPunct)) {
+                    if (!choppedFullText[i].contains(regexPunct) && choppedFullText[i]!="\n") {
                         if (numRemoved <= fullTextSplit[i].length) {
                             choppedFullText[i] = fullTextSplit[i].substring(
                                 0,
@@ -109,6 +111,10 @@ class MemoryPi : AppCompatActivity() {
                 }
                 binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
+            }
+            else if (numRemoved == -1) {
+                showPunctuation()
+                numRemoved--
             }
             Log.d(TAG, "onCreate: $numRemoved")
 
@@ -120,7 +126,7 @@ class MemoryPi : AppCompatActivity() {
                 numRemoved++
 
                 for (i in choppedFullText.indices) {
-                    if (!choppedFullText[i].contains(regexPunct)) {
+                    if (!choppedFullText[i].contains(regexPunct) && choppedFullText[i]!="\n") {
                         if (numRemoved <= fullTextSplit[i].length) {
                             choppedFullText[i] = fullTextSplit[i].substring(
                                 0,
@@ -129,18 +135,18 @@ class MemoryPi : AppCompatActivity() {
                         }
                     }
                 }
-                //showPunctuation()
-                binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
+                showPunctuation()
+                //binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
             }
-//            else {
-//              hidePunctuation()
-//            }
-            //binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
+            else {
+              hidePunctuation()
+                numRemoved++
+            }
+            binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
             Log.d(TAG, "onCreate: $numRemoved")
 
         }
-
 
     }
 
@@ -157,7 +163,7 @@ class MemoryPi : AppCompatActivity() {
     // All punctuation counts as a "final" letter and is removed
     private fun hidePunctuation() {
         for (i in choppedFullText.indices) {
-            if (choppedFullText[i].contains(regexPunct)) {
+            if (choppedFullText[i].contains(regexPunct) && choppedFullText[i]!="\n") {
                 choppedFullText[i] = "_"
             }
         }
@@ -165,11 +171,12 @@ class MemoryPi : AppCompatActivity() {
 
     private fun showPunctuation() {
         for (i in choppedFullText.indices) {
-            if (fullTextSplit[i].contains(regexPunct)) {
+            if (fullTextSplit[i].contains(regexPunct) && choppedFullText[i]!="\n") {
                 choppedFullText[i] = fullTextSplit[i]
             }
         }
     }
+
 
 
 
