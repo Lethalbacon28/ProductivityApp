@@ -13,7 +13,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent = Intent(this, GradeCalculator::class.java)
+        //binding.chronometerMainStopwatch.isCountDown = true
+
+        val intent = Intent(this, MemoryPi::class.java)
         this.startActivity(intent)
+
     }
 }

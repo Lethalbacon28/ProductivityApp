@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ProductivityApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/primaryPurple</item>
+        <item name="backgroundColor">@color/primaryBackground</item>
     </style>
 
     <style name="Theme.ProductivityApp" parent="Base.Theme.ProductivityApp" />
