@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ProductivityApp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primaryPurple</item>
+        <item name="backgroundColor">@color/primaryBackground</item>
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>

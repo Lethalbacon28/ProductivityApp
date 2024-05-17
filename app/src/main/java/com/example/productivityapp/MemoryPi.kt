@@ -20,7 +20,9 @@ class MemoryPi : AppCompatActivity() {
     private lateinit var fullText: String
     private lateinit var fullTextSplit: MutableList<String>
     private lateinit var choppedFullText: MutableList<String>
+
     private var numRemoved = 0
+    private var punctRemoved = false
 
     //val regexPunct = Regex("([?<=\\p{Punct}]|[?=\\p{Punct}])")
 
@@ -34,8 +36,6 @@ class MemoryPi : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoryPiBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.constraintLayoutMemoryPiLayout.setBackgroundColor(getColor(R.color.backgroundMemoryPi))
 
         //read the text and transfer to textView
         binding.textViewMemoryPiTextMemorize.text =
@@ -95,7 +95,12 @@ class MemoryPi : AppCompatActivity() {
 
         // Add letters back to the text
         binding.buttonMemoryPiAddLetter.setOnClickListener {
-            if (numRemoved > 0) {
+            if (punctRemoved) {
+                showPunctuation()
+                punctRemoved = false
+                binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
+            }
+            else if (numRemoved > 0) {
                 numRemoved--
 
                 //consider refactoring this code into its own method
@@ -112,10 +117,7 @@ class MemoryPi : AppCompatActivity() {
                 binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
             }
-            else if (numRemoved == -1) {
-                showPunctuation()
-                numRemoved--
-            }
+
             Log.d(TAG, "onCreate: $numRemoved")
 
         }
@@ -135,12 +137,12 @@ class MemoryPi : AppCompatActivity() {
                         }
                     }
                 }
-                showPunctuation()
+                //showPunctuation()
                 //binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
             }
             else {
-              hidePunctuation()
-                numRemoved++
+                hidePunctuation()
+                punctRemoved = true
             }
             binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
@@ -170,14 +172,15 @@ class MemoryPi : AppCompatActivity() {
     }
 
     private fun showPunctuation() {
-        for (i in choppedFullText.indices) {
-            if (fullTextSplit[i].contains(regexPunct) && choppedFullText[i]!="\n") {
+        Log.d(TAG, "showPunctuation: I ran")
+        for (i in fullTextSplit.indices) {
+            if (fullTextSplit[i].contains(regexPunct)) {
                 choppedFullText[i] = fullTextSplit[i]
+                Log.d(TAG, "showPunctuation: replaced ${choppedFullText[i]} with ${fullTextSplit[i]}")
             }
         }
+
     }
-
-
 
 
 
