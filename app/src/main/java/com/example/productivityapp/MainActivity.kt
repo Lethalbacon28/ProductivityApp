@@ -25,9 +25,27 @@ class MainActivity : AppCompatActivity() {
         Log.d("Something", "onCreate: ${mydir.listFiles()}")
 
         //binding.chronometerMainStopwatch.isCountDown = true
+        binding.buttonMainActivityQuiz.setOnClickListener{
+            val intent = Intent(this, QuizActivity::class.java)
+            this.startActivity(intent)
+        }
+    // we haven't done any of this yet lmao
+//        binding.buttonMainChronometer.setOnClickListener{
+//            val intent = Intent(this, ::class.java)
+//            this.startActivity(intent)
+//        }
+        binding.buttonMainActivityGradeCalc.setOnClickListener{
+            val intent = Intent(this, GradeCalculator::class.java)
+            this.startActivity(intent)
+        }
+        binding.buttonMainActivityMemoryPi.setOnClickListener{
+            val intent = Intent(this, MemoryPi::class.java)
+            this.startActivity(intent)
+        }
 
-        val intent = Intent(this, MemoryPi::class.java)
-        this.startActivity(intent)
+
+//        val intent = Intent(this, MemoryPi::class.java)
+//        this.startActivity(intent)
 
     }
 }

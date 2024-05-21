@@ -40,7 +40,8 @@ android {
 }
 
 dependencies {
-
+    implementation("com.google.ai.client.generativeai:generativeai:0.6.0")
+    implementation("com.loopj.android:android-async-http:1.4.11")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")

@@ -4,4 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"/>
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button_mainActivity_memoryPi"
+        android:layout_width="189dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="196dp"
+        android:text="MemoryPi"
+        app:layout_constraintEnd_toStartOf="@+id/button_mainActivity_quiz"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_mainActivity_gradeCalc"
+        android:layout_width="187dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="276dp"
+        android:text="Grade Calculator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_main_chronometer"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_main_chronometer"
+        android:layout_width="187dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="16dp"
+        android:text="Chronometer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_mainActivity_gradeCalc"
+        app:layout_constraintTop_toTopOf="@+id/button_mainActivity_gradeCalc"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/button_mainActivity_quiz"
+        android:layout_width="189dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginEnd="16dp"
+        android:text="Quiz AI"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button_mainActivity_memoryPi"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

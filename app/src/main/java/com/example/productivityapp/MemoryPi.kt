@@ -64,7 +64,9 @@ class MemoryPi : AppCompatActivity() {
         for (i in fullTextSplit.indices) {
             max = max(max, fullTextSplit[i].length)
         }
-
+        binding.buttonMemoryPiBack.setOnClickListener{
+            finish()
+        }
 
         binding.buttonMemoryPiEditText.setOnClickListener {
 
