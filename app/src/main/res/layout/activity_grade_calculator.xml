@@ -14,6 +14,7 @@
         android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="Final Grade Calculator"
+        android:textColor="@color/primaryText"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +31,7 @@
         android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="This app will determine what grade (percentage) you need on your final exam in order to get a certain grade in a class."
+        android:textColor="@color/primaryText"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,12 +40,14 @@
 
     <EditText
         android:id="@+id/editText_gradeCalculator_currentGrade"
+        android:textColorHint="@color/hintText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:ems="10"
         android:hint="Ex: 94.5 (current grade)"
         android:inputType="text"
+        android:textColor="@color/primaryText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,18 +55,21 @@
 
     <EditText
         android:id="@+id/editText_gradeCalculator_gradeWanted"
+        android:textColorHint="@color/hintText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Ex: 90.0 (grade wanted)"
         android:inputType="text"
+        android:textColor="@color/primaryText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_gradeCalculator_currentGrade" />
 
     <EditText
+        android:textColorHint="@color/hintText"
         android:id="@+id/editText_gradeCalculator_finalGradeWorth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,6 +77,7 @@
         android:ems="10"
         android:hint="Ex: 15 (final worth)"
         android:inputType="text"
+        android:textColor="@color/primaryText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primaryPurple">#cdb5ff</color>
     <color name="primaryBackground">#fcdbe6</color>
+    <color name="primaryText">#55494c</color>
+    <color name="hintText">#aa9398</color>
 </resources>

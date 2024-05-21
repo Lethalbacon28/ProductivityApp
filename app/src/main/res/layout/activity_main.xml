@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryBackground"
     tools:context=".MainActivity">
 
     <Button
@@ -13,9 +14,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="196dp"
         android:text="MemoryPi"
+        android:textColor="@color/primaryText"
         app:layout_constraintEnd_toStartOf="@+id/button_mainActivity_quiz"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:rippleColor="@color/primaryPurple" />
 
     <Button
         android:id="@+id/button_mainActivity_gradeCalc"
@@ -24,10 +27,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="276dp"
         android:text="Grade Calculator"
+        android:textColor="@color/primaryText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_main_chronometer"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="@color/primaryPurple" />
 
     <Button
         android:id="@+id/button_main_chronometer"
@@ -36,6 +41,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginEnd="16dp"
         android:text="Chronometer"
+        android:textColor="@color/primaryText"
+        app:iconTint="@color/primaryPurple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_mainActivity_gradeCalc"
@@ -50,6 +57,8 @@
         android:layout_marginTop="196dp"
         android:layout_marginEnd="16dp"
         android:text="Quiz AI"
+        android:textColor="@color/primaryText"
+        app:iconTint="@color/primaryPurple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/button_mainActivity_memoryPi"
