@@ -16,14 +16,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mydir: File = this.getDir("ProductivityApp", MODE_PRIVATE) //Creating an internal dir;
 
-        if (!mydir.exists()) {
-            mydir.mkdirs()
-        }
-
-        Log.d("Something", "onCreate: ${mydir.listFiles()}")
-
+        Log.d("onCreate: ", "onCreate: ${this@MainActivity.fileList()}")
         //binding.chronometerMainStopwatch.isCountDown = true
         binding.buttonMainActivityQuiz.setOnClickListener{
             val intent = Intent(this, QuizActivity::class.java)

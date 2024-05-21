@@ -37,9 +37,12 @@ class MemoryPi : AppCompatActivity() {
         binding = ActivityMemoryPiBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        Log.d(TAG, "onCreate: ${this.fileList()}")
+
         //read the text and transfer to textView
+
         binding.textViewMemoryPiTextMemorize.text =
-            try {
+            try { TODO("Have to replace the parameter w/ actual filename")
             this@MemoryPi.openFileInput(getString(R.string.fileName)).bufferedReader()
                 .useLines { lines ->
                     lines.fold("") { some, text ->
@@ -77,10 +80,12 @@ class MemoryPi : AppCompatActivity() {
 
             builder.setView(input)
 
+
             builder.setPositiveButton("Save",
                 DialogInterface.OnClickListener { thing, which ->
                     newTextToMemorize = input.text.toString()
-                    writeToStorage(newTextToMemorize)
+                    TODO("give it a name")
+                    writeToStorage(newTextToMemorize, binding.textViewMemoryPiTitle.text.toString())
                     binding.textViewMemoryPiTextMemorize.text = newTextToMemorize
                 }
             )
@@ -152,13 +157,19 @@ class MemoryPi : AppCompatActivity() {
 
         }
 
+        binding.buttonMemoryPiBack.setOnClickListener {
+            finish()
+        }
+
     }
 
-    private fun writeToStorage(text: String) {
-        val filename = getString(R.string.fileName)
+    private fun writeToStorage(text: String, fileName:String) {
+        val filename = fileName
         val fileContents = text
-        this@MemoryPi.openFileOutput(filename, Context.MODE_PRIVATE).use {
-            it.write(fileContents.toByteArray())
+        this@MemoryPi.getDir("memoryPi", Context.MODE_PRIVATE).apply{
+            openFileOutput(filename, Context.MODE_PRIVATE).use {
+                it.write(fileContents.toByteArray())
+            }
         }
     }
 
@@ -174,11 +185,9 @@ class MemoryPi : AppCompatActivity() {
     }
 
     private fun showPunctuation() {
-        Log.d(TAG, "showPunctuation: I ran")
         for (i in fullTextSplit.indices) {
             if (fullTextSplit[i].contains(regexPunct)) {
                 choppedFullText[i] = fullTextSplit[i]
-                Log.d(TAG, "showPunctuation: replaced ${choppedFullText[i]} with ${fullTextSplit[i]}")
             }
         }
 
