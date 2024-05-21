@@ -44,5 +44,8 @@ class GradeCalculator : AppCompatActivity() {
                 builder.show()
             }
         }
+        binding.buttonGradeCalculatorBack.setOnClickListener{
+            finish()
+        }
     }
 }
