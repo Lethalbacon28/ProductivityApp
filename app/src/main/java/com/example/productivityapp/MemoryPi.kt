@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productivityapp.databinding.ActivityMemoryPiBinding
 import java.io.FileNotFoundException
+import java.lang.NullPointerException
 import kotlin.math.max
 
 class MemoryPi : AppCompatActivity() {
@@ -42,8 +43,8 @@ class MemoryPi : AppCompatActivity() {
         //read the text and transfer to textView
 
         binding.textViewMemoryPiTextMemorize.text =
-            try { TODO("Have to replace the parameter w/ actual filename")
-            this@MemoryPi.openFileInput(getString(R.string.fileName)).bufferedReader()
+            try {
+            this@MemoryPi.openFileInput(intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)).bufferedReader()
                 .useLines { lines ->
                     lines.fold("") { some, text ->
                         "$some\n$text"
@@ -53,6 +54,9 @@ class MemoryPi : AppCompatActivity() {
             Log.d(TAG, "onCreate: File DNE")
 
             "Hello! This is some filler text. Try pressing the add and remove letter buttons!"
+        } catch (e: NullPointerException) {
+                Log.d(TAG, "onCreate: It's null")
+                "Hello! This is some filler text. Try pressing the add and remove letter buttons!"
         }
 
         //Initialize vars that hold different versions of the text
@@ -84,8 +88,7 @@ class MemoryPi : AppCompatActivity() {
             builder.setPositiveButton("Save",
                 DialogInterface.OnClickListener { thing, which ->
                     newTextToMemorize = input.text.toString()
-                    TODO("give it a name")
-                    writeToStorage(newTextToMemorize, binding.textViewMemoryPiTitle.text.toString())
+                    writeToStorage(newTextToMemorize, binding.editTextTextMemoryPiTitle.text.toString())
                     binding.textViewMemoryPiTextMemorize.text = newTextToMemorize
                 }
             )
@@ -164,9 +167,9 @@ class MemoryPi : AppCompatActivity() {
     }
 
     private fun writeToStorage(text: String, fileName:String) {
-        val filename = fileName
+        val filename = fileName + ".txt"
         val fileContents = text
-        this@MemoryPi.getDir("memoryPi", Context.MODE_PRIVATE).apply{
+        this@MemoryPi.getDir(getString(R.string.fileDir), Context.MODE_PRIVATE).apply{
             openFileOutput(filename, Context.MODE_PRIVATE).use {
                 it.write(fileContents.toByteArray())
             }

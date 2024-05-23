@@ -16,30 +16,44 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        Log.d("onCreate: ", "onCreate: ${this@MainActivity.fileList()}")
-        //binding.chronometerMainStopwatch.isCountDown = true
-        binding.buttonMainActivityQuiz.setOnClickListener{
-            val intent = Intent(this, QuizActivity::class.java)
-            this.startActivity(intent)
+        val mydir: File = this.getDir(getString(R.string.fileDir), MODE_PRIVATE) //Creating an internal dir;
+        if (!mydir.exists()) {
+            mydir.mkdirs()
+            Log.d("what", "onCreate: Directory made")
+        }else {
+            Log.d("what", "onCreate: already made")
         }
-    // we haven't done any of this yet lmao
-//        binding.buttonMainChronometer.setOnClickListener{
-//            val intent = Intent(this, ::class.java)
+
+
+        //Log.d("TAG", "onCreate: I ran")
+
+
+        //Log.d("onCreate: ", "onCreate: ${this@MainActivity.fileList()}")
+        //binding.chronometerMainStopwatch.isCountDown = true
+
+        this.startActivity(Intent(this, MemoryPiFileSelect::class.java))
+//
+//        binding.buttonMainActivityQuiz.setOnClickListener{
+//            val intent = Intent(this, QuizActivity::class.java)
 //            this.startActivity(intent)
 //        }
-        binding.buttonMainActivityGradeCalc.setOnClickListener{
-            val intent = Intent(this, GradeCalculator::class.java)
-            this.startActivity(intent)
-        }
-        binding.buttonMainActivityMemoryPi.setOnClickListener{
-            val intent = Intent(this, MemoryPi::class.java)
-            this.startActivity(intent)
-        }
-
-
-//        val intent = Intent(this, MemoryPi::class.java)
-//        this.startActivity(intent)
+//    // we haven't done any of this yet lmao
+////        binding.buttonMainChronometer.setOnClickListener{
+////            val intent = Intent(this, ::class.java)
+////            this.startActivity(intent)
+////        }
+//        binding.buttonMainActivityGradeCalc.setOnClickListener{
+//            val intent = Intent(this, GradeCalculator::class.java)
+//            this.startActivity(intent)
+//        }
+//        binding.buttonMainActivityMemoryPi.setOnClickListener{
+//            val intent = Intent(this, MemoryPi::class.java)
+//            this.startActivity(intent)
+//        }
+//
+//
+////        val intent = Intent(this, MemoryPi::class.java)
+////        this.startActivity(intent)
 
     }
 }
