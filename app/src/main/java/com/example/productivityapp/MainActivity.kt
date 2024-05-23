@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
             this.startActivity(intent)
         }
     // we haven't done any of this yet lmao
-//        binding.buttonMainChronometer.setOnClickListener{
-//            val intent = Intent(this, ::class.java)
-//            this.startActivity(intent)
-//        }
+        binding.buttonMainChronometer.setOnClickListener{
+            val intent = Intent(this, Flashcard::class.java)
+            this.startActivity(intent)
+        }
         binding.buttonMainActivityGradeCalc.setOnClickListener{
             val intent = Intent(this, GradeCalculator::class.java)
             this.startActivity(intent)

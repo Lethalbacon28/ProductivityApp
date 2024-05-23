@@ -6,4 +6,5 @@
     <color name="primaryBackground">#fcdbe6</color>
     <color name="primaryText">#55494c</color>
     <color name="hintText">#aa9398</color>
+    <color name="quizletColor">#485cb4</color>
 </resources>
