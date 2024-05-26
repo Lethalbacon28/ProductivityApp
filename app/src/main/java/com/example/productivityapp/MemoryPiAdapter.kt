@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import java.io.File
 
-class MemoryPiAdapter(private val fileList: Array<String>) :
+class MemoryPiAdapter(private val fileList: Array<File>) :
     RecyclerView.Adapter<MemoryPiAdapter.ViewHolder>() {
 
     companion object {
@@ -20,12 +21,12 @@ class MemoryPiAdapter(private val fileList: Array<String>) :
      * (custom ViewHolder)
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+        val fileName: TextView
         val layout: ConstraintLayout
 
         init {
             // Define click listener for the ViewHolder's View
-            textView = view.findViewById(R.id.textView_memoryPiFileSelect_fileName)
+            fileName = view.findViewById(R.id.textView_memoryPiFileSelect_fileName)
             layout = view.findViewById(R.id.layout_item_file)
         }
     }
@@ -42,19 +43,22 @@ class MemoryPiAdapter(private val fileList: Array<String>) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
+        val fileName = fileList[position].name
+
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        if (fileList.size != 0) {
-            viewHolder.textView.text = fileList[position]
+        if (fileList.isNotEmpty()) {
+            viewHolder.fileName.text = fileName
         } else {
-            viewHolder.textView.text = "Nothing here"
+            viewHolder.fileName.text = "Nothing here"
         }
 
         val context = viewHolder.layout.context
 
         viewHolder.layout.setOnClickListener {
             val intent = Intent(context, MemoryPi::class.java)
-            intent.putExtra(EXTRA_FILENAME, fileList[position].substring(fileList[position].lastIndexOf("/")+1))
+            intent.putExtra(EXTRA_FILENAME, fileName)
+            //.substring(fileList[position].name.lastIndexOf("/")+1)
             context.startActivity(intent)
         }
     }

@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productivityapp.databinding.ActivityMemoryPiBinding
 import java.io.FileNotFoundException
-import java.lang.NullPointerException
 import kotlin.math.max
 
 class MemoryPi : AppCompatActivity() {
@@ -21,13 +20,11 @@ class MemoryPi : AppCompatActivity() {
     private lateinit var fullText: String
     private lateinit var fullTextSplit: MutableList<String>
     private lateinit var choppedFullText: MutableList<String>
-
     private var numRemoved = 0
-    private var punctRemoved = false
 
     //val regexPunct = Regex("([?<=\\p{Punct}]|[?=\\p{Punct}])")
 
-    val regexPunct = Regex("(?<=[\\p{Punct} \\n&&[^_]])|(?=[\\p{Punct} \\n&&[^_]])")
+    val regexPunct = Regex("(?<=[\\p{Punct} &&[^_]])|(?=[\\p{Punct} &&[^_]])")
 
     companion object {
         val TAG = "memoryPi"
@@ -38,10 +35,7 @@ class MemoryPi : AppCompatActivity() {
         binding = ActivityMemoryPiBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        Log.d(TAG, "onCreate: ${this.fileList()}")
-
         //read the text and transfer to textView
-
         binding.textViewMemoryPiTextMemorize.text =
             try {
             this@MemoryPi.openFileInput(intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)).bufferedReader()
@@ -54,9 +48,6 @@ class MemoryPi : AppCompatActivity() {
             Log.d(TAG, "onCreate: File DNE")
 
             "Hello! This is some filler text. Try pressing the add and remove letter buttons!"
-        } catch (e: NullPointerException) {
-                Log.d(TAG, "onCreate: It's null")
-                "Hello! This is some filler text. Try pressing the add and remove letter buttons!"
         }
 
         //Initialize vars that hold different versions of the text
@@ -71,9 +62,7 @@ class MemoryPi : AppCompatActivity() {
         for (i in fullTextSplit.indices) {
             max = max(max, fullTextSplit[i].length)
         }
-        binding.buttonMemoryPiBack.setOnClickListener{
-            finish()
-        }
+
 
         binding.buttonMemoryPiEditText.setOnClickListener {
 
@@ -83,7 +72,6 @@ class MemoryPi : AppCompatActivity() {
             val input = EditText(this)
 
             builder.setView(input)
-
 
             builder.setPositiveButton("Save",
                 DialogInterface.OnClickListener { thing, which ->
@@ -105,17 +93,12 @@ class MemoryPi : AppCompatActivity() {
 
         // Add letters back to the text
         binding.buttonMemoryPiAddLetter.setOnClickListener {
-            if (punctRemoved) {
-                showPunctuation()
-                punctRemoved = false
-                binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
-            }
-            else if (numRemoved > 0) {
+            if (numRemoved > 0) {
                 numRemoved--
 
                 //consider refactoring this code into its own method
                 for (i in choppedFullText.indices) {
-                    if (!choppedFullText[i].contains(regexPunct) && choppedFullText[i]!="\n") {
+                    if (!choppedFullText[i].contains(regexPunct)) {
                         if (numRemoved <= fullTextSplit[i].length) {
                             choppedFullText[i] = fullTextSplit[i].substring(
                                 0,
@@ -127,7 +110,6 @@ class MemoryPi : AppCompatActivity() {
                 binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
             }
-
             Log.d(TAG, "onCreate: $numRemoved")
 
         }
@@ -138,7 +120,7 @@ class MemoryPi : AppCompatActivity() {
                 numRemoved++
 
                 for (i in choppedFullText.indices) {
-                    if (!choppedFullText[i].contains(regexPunct) && choppedFullText[i]!="\n") {
+                    if (!choppedFullText[i].contains(regexPunct)) {
                         if (numRemoved <= fullTextSplit[i].length) {
                             choppedFullText[i] = fullTextSplit[i].substring(
                                 0,
@@ -148,53 +130,44 @@ class MemoryPi : AppCompatActivity() {
                     }
                 }
                 //showPunctuation()
-                //binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
+                binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
             }
-            else {
-                hidePunctuation()
-                punctRemoved = true
-            }
-            binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
+//            else {
+//              hidePunctuation()
+//            }
+            //binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
             Log.d(TAG, "onCreate: $numRemoved")
-
-        }
-
-        binding.buttonMemoryPiBack.setOnClickListener {
-            finish()
         }
 
     }
 
-    private fun writeToStorage(text: String, fileName:String) {
-        val filename = fileName + ".txt"
+    private fun writeToStorage(text: String, fileName: String) {
+//        val filename = getString(R.string.fileName)
         val fileContents = text
-        this@MemoryPi.getDir(getString(R.string.fileDir), Context.MODE_PRIVATE).apply{
-            openFileOutput(filename, Context.MODE_PRIVATE).use {
-                it.write(fileContents.toByteArray())
-            }
+        this@MemoryPi.openFileOutput("$fileName.txt", Context.MODE_PRIVATE).use {
+            it.write(fileContents.toByteArray())
         }
     }
 
-    // I dunno how to implement these
-    // The idea is that after all normal letters are removed
-    // All punctuation counts as a "final" letter and is removed
+
+    // Do I need these?
     private fun hidePunctuation() {
         for (i in choppedFullText.indices) {
-            if (choppedFullText[i].contains(regexPunct) && choppedFullText[i]!="\n") {
+            if (choppedFullText[i].contains(regexPunct)) {
                 choppedFullText[i] = "_"
             }
         }
     }
 
     private fun showPunctuation() {
-        for (i in fullTextSplit.indices) {
+        for (i in choppedFullText.indices) {
             if (fullTextSplit[i].contains(regexPunct)) {
                 choppedFullText[i] = fullTextSplit[i]
             }
         }
-
     }
+
 
 
 

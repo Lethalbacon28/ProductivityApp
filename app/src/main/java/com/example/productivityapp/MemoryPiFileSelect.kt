@@ -19,19 +19,22 @@ class MemoryPiFileSelect : AppCompatActivity() {
         binding = ActivityMemoryPiFileSelectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        this.getDir(getString(R.string.fileDir), Context.MODE_PRIVATE).apply {
-            Log.d("TAG", "onCreate: ${listFiles().size}")
-            val files = listFiles()
-            for (i in files.indices) {
-                Log.d("MemoryPiFileSelect", "onCreate: ${files[i].name?: "null"}")
-                fileListName.add(files[i].name)
-            }
+//        this.getDir(getString(R.string.fileDir), Context.MODE_PRIVATE).apply {
+//            Log.d("TAG", "onCreate: ${listFiles().size}")
+//            val files = listFiles()
+//            for (i in files.indices) {
+//                Log.d("MemoryPiFileSelect", "onCreate: ${files[i].name?: "null"}")
+//                fileListName.add(files[i].name)
+//            }
+//        }
+//        fileListName.add(0,"hi")
 
-        }
 
-        fileListName.add(0,"hi")
+        var files = filesDir.listFiles()
+        files = files.filter { it.isFile && it.canRead() && it.name.endsWith(".txt") }.toTypedArray()
 
-        val adapter = MemoryPiAdapter(fileListName.toTypedArray())
+
+        val adapter = MemoryPiAdapter(files)
         binding.recyclerViewMemoryPiFileSelectFileList.adapter = adapter
         binding.recyclerViewMemoryPiFileSelectFileList.layoutManager = LinearLayoutManager(this)
 

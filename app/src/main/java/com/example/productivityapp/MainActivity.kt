@@ -16,13 +16,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mydir: File = this.getDir(getString(R.string.fileDir), MODE_PRIVATE) //Creating an internal dir;
-        if (!mydir.exists()) {
-            mydir.mkdirs()
-            Log.d("what", "onCreate: Directory made")
-        }else {
-            Log.d("what", "onCreate: already made")
-        }
+//        val mydir: File = this.getDir(getString(R.string.fileDir), MODE_PRIVATE) //Creating an internal dir;
+//        if (!mydir.exists()) {
+//            mydir.mkdirs()
+//            Log.d("what", "onCreate: Directory made")
+//        }else {
+//            Log.d("what", "onCreate: already made")
+//        }
 
 
         //Log.d("TAG", "onCreate: I ran")
