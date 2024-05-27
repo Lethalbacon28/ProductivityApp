@@ -167,8 +167,6 @@ class MemoryPi : AppCompatActivity() {
         }
     }
 
-
-    // Do I need these?
     private fun hidePunctuation() {
         for (i in choppedFullText.indices) {
             if (choppedFullText[i].contains(regexPunct)) {
