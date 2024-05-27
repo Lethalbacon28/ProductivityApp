@@ -1,10 +1,7 @@
 package com.example.productivityapp
 
-import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.example.productivityapp.databinding.ActivityGradeCalculatorBinding
 
