@@ -4,12 +4,13 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 
-class MemoryPiAdapter(private val fileList: Array<File>) :
+class MemoryPiAdapter(var fileList: MutableList<File>) :
     RecyclerView.Adapter<MemoryPiAdapter.ViewHolder>() {
 
     companion object {
@@ -55,6 +56,23 @@ class MemoryPiAdapter(private val fileList: Array<File>) :
 
         val context = viewHolder.layout.context
 
+        viewHolder.layout.isLongClickable = true
+        viewHolder.layout.setOnLongClickListener {
+            val popMenu = PopupMenu(context, viewHolder.fileName)
+            popMenu.inflate(R.menu.menu_memory_pi_files_context)
+            popMenu.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_memoryPiFiles_delete -> {
+                        delete(position)
+                        true
+                    }
+                    else -> true
+                }
+            }
+            popMenu.show()
+            true
+        }
+
         viewHolder.layout.setOnClickListener {
             val intent = Intent(context, MemoryPi::class.java)
             intent.putExtra(EXTRA_FILENAME, fileName)
@@ -64,6 +82,19 @@ class MemoryPiAdapter(private val fileList: Array<File>) :
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = fileList.size
+    override fun getItemCount(): Int {
+        return fileList.size
+    }
+
+    
+    private fun delete(position: Int) {
+        fileList[position].delete()
+        fileList.removeAt(position)
+        //notifyItemRemoved(position)
+        notifyDataSetChanged()
+    }
+
 
 }
+
+

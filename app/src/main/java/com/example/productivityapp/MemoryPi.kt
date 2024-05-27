@@ -20,11 +20,13 @@ class MemoryPi : AppCompatActivity() {
     private lateinit var fullText: String
     private lateinit var fullTextSplit: MutableList<String>
     private lateinit var choppedFullText: MutableList<String>
+
     private var numRemoved = 0
+    private var punctRemoved = false
 
     //val regexPunct = Regex("([?<=\\p{Punct}]|[?=\\p{Punct}])")
 
-    val regexPunct = Regex("(?<=[\\p{Punct} &&[^_]])|(?=[\\p{Punct} &&[^_]])")
+    val regexPunct = Regex("(?<=[\\p{Punct} &&[^_]&&[^']])|(?=[\\p{Punct} &&[^_]&&[^']])")
 
     companion object {
         val TAG = "memoryPi"
@@ -38,7 +40,7 @@ class MemoryPi : AppCompatActivity() {
         //read the text and transfer to textView
         binding.textViewMemoryPiTextMemorize.text =
             try {
-            this@MemoryPi.openFileInput(intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)).bufferedReader()
+            this@MemoryPi.openFileInput(intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)?: "noFileFound.txt").bufferedReader()
                 .useLines { lines ->
                     lines.fold("") { some, text ->
                         "$some\n$text"
@@ -47,8 +49,10 @@ class MemoryPi : AppCompatActivity() {
         } catch (e: FileNotFoundException) {
             Log.d(TAG, "onCreate: File DNE")
 
-            "Hello! This is some filler text. Try pressing the add and remove letter buttons!"
+            getString(R.string.fillerText)
         }
+
+        binding.editTextTextMemoryPiTitle.setText(intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME).toString().removeSuffix(".txt"))
 
         //Initialize vars that hold different versions of the text
         fullText = binding.textViewMemoryPiTextMemorize.text.toString()
@@ -93,7 +97,12 @@ class MemoryPi : AppCompatActivity() {
 
         // Add letters back to the text
         binding.buttonMemoryPiAddLetter.setOnClickListener {
-            if (numRemoved > 0) {
+            if (punctRemoved) {
+                showPunctuation()
+                punctRemoved = false
+            }
+            else if (numRemoved>0) {
+
                 numRemoved--
 
                 //consider refactoring this code into its own method
@@ -107,9 +116,12 @@ class MemoryPi : AppCompatActivity() {
                         }
                     }
                 }
-                binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
             }
+
+
+            binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
+
             Log.d(TAG, "onCreate: $numRemoved")
 
         }
@@ -130,14 +142,19 @@ class MemoryPi : AppCompatActivity() {
                     }
                 }
                 //showPunctuation()
-                binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
+                //binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
             }
-//            else {
-//              hidePunctuation()
-//            }
-            //binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
+            else {
+                hidePunctuation()
+                punctRemoved = true
+            }
+            binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
             Log.d(TAG, "onCreate: $numRemoved")
+        }
+
+        binding.buttonMemoryPiBack.setOnClickListener {
+            finish()
         }
 
     }
@@ -145,7 +162,7 @@ class MemoryPi : AppCompatActivity() {
     private fun writeToStorage(text: String, fileName: String) {
 //        val filename = getString(R.string.fileName)
         val fileContents = text
-        this@MemoryPi.openFileOutput("$fileName.txt", Context.MODE_PRIVATE).use {
+        this.openFileOutput("$fileName.txt", Context.MODE_PRIVATE).use {
             it.write(fileContents.toByteArray())
         }
     }
@@ -167,8 +184,6 @@ class MemoryPi : AppCompatActivity() {
             }
         }
     }
-
-
 
 
 }

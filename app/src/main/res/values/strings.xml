@@ -5,4 +5,7 @@
     <string name="removeLetter">Remove Letter</string>
     <string name="fileDir">memoryPi</string>
     <string name="back">Back</string>
+    <string name="fillerText">"Hello! This is some filler text. Try pressing the add and remove letter buttons!"</string>
+    <string name="fileSelect">Memorization Texts</string>
+    <string name="delete">Delete</string>
 </resources>
