@@ -2,6 +2,7 @@ package com.example.productivityapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -23,41 +24,116 @@ class Flashcard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFlashcardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //making flashcard invisible
         binding.buttonFlashcardFlashcard.isVisible = false
+        binding.imageButtonFlashcardLeft.isVisible = false
+        binding.imageButtonFlashcardRight.isVisible = false
+        binding.textViewFlashcardDirection.isVisible = false
+        binding.textViewFlashcardNumber.isVisible = false
+        var flashcardNumber: Int = 1
         val generativeModel = GenerativeModel(
             modelName = "gemini-1.5-pro-latest",
             apiKey = Constants.API_KEY
         )
+
         binding.buttonFlashcardSubmit.setOnClickListener{
             userResponse = binding.editTextFlashcardUserResponse.text.toString()
+            println("initial " + userResponse)
             binding.buttonFlashcardSubmit.isVisible = false
+            binding.switchFlashcardAi.isVisible = false
             binding.editTextFlashcardUserResponse.isVisible = false
-            quizValue = userResponse.split("/")
-            println(quizValue)
-            binding.buttonFlashcardFlashcard.isVisible = true
+            if(binding.switchFlashcardAi.isChecked) {
+                Log.d("Flashcard", binding.switchFlashcardAi.isChecked.toString())
+                val prompt =
+                    "In the prompt I give you, can you subsitute all spaces used for /. Here is the propmt $userResponse"
+                  //  "Can you create a list for flashcards based on the given text and seperate each definition and term with a /" + userResponse
+                MainScope().launch {
+                    response = generativeModel.generateContent(prompt)
+                    userResponse = response.text.toString()
+                    println(userResponse)
+                    quizValue = splitValue(userResponse)
+                }
+            }
+            else{
+                quizValue = splitValue(userResponse)
+            }
+              //  quizValue = userResponse.split("/")
+                println("quiz value" + quizValue)
+                binding.buttonFlashcardFlashcard.isVisible = true
+                binding.imageButtonFlashcardLeft.isVisible = true
+                binding.imageButtonFlashcardRight.isVisible = true
+                binding.textViewFlashcardDirection.isVisible = true
+                binding.textViewFlashcardNumber.isVisible = true
+                binding.buttonFlashcardFlashcard.text = quizValue[0]
+                //   binding.textViewFlashcardDirection.text = "Front"
+                binding.textViewFlashcardNumber.text = "Flashcard: 1"
+
         }
 
-
-        val prompt = ""
-        MainScope().launch {
-            response = generativeModel.generateContent(prompt)
-            list = response.text.toString()
-
-        }
-            binding.buttonFlashcardFlashcard.setOnClickListener {
-                if (quizIteration % 2 == 0)
-                {
-                    quizIteration ++
-                    binding.buttonFlashcardFlashcard.text = list[quizIteration].toString()
-                }
-                else{
-                    quizIteration --
-                    binding.buttonFlashcardFlashcard.text = list[quizIteration].toString()
-                }
+//        if(quizIteration % 2 == 0){
+//            binding.textViewFlashcardDirection.text = "Front"
+//        }
+//        else{
+//            binding.textViewFlashcardDirection.text = "Back"
+//        }
 
 
+        binding.buttonFlashcardFlashcard.setOnClickListener {
+            if (quizIteration % 2 == 0)
+            {
+                quizIteration ++
+                binding.buttonFlashcardFlashcard.text = quizValue[quizIteration]
+                binding.textViewFlashcardDirection.text = "Back"
+                binding.textViewFlashcardNumber.text = "Flashcard: " + flashcardNumber
+            }
+            else{
+                quizIteration --
+                binding.buttonFlashcardFlashcard.text = quizValue[quizIteration]
+                binding.textViewFlashcardDirection.text = "Front"
             }
 
+
+        }
+        binding.imageButtonFlashcardRight.setOnClickListener{
+            if (quizIteration % 2 == 0)
+            {
+                quizIteration += 2
+                binding.buttonFlashcardFlashcard.text = quizValue[quizIteration]
+                binding.textViewFlashcardDirection.text = "Front"
+                flashcardNumber ++
+                binding.textViewFlashcardNumber.text = "Flashcard: " + flashcardNumber
+            }
+            else{
+                quizIteration += 1
+                binding.buttonFlashcardFlashcard.text = quizValue[quizIteration]
+                binding.textViewFlashcardDirection.text = "Front"
+                flashcardNumber ++
+                binding.textViewFlashcardNumber.text = "Flashcard: " + flashcardNumber
+            }
+        }
+        binding.imageButtonFlashcardLeft.setOnClickListener{
+            if (quizIteration % 2 == 0)
+            {
+                quizIteration -= 2
+                binding.buttonFlashcardFlashcard.text = quizValue[quizIteration]
+                binding.textViewFlashcardDirection.text = "Front"
+                flashcardNumber --
+                binding.textViewFlashcardNumber.text = "Flashcard: " + flashcardNumber
+            }
+            else{
+                quizIteration -= 3
+                binding.buttonFlashcardFlashcard.text = quizValue[quizIteration]
+                binding.textViewFlashcardDirection.text = "Front"
+                flashcardNumber --
+                binding.textViewFlashcardNumber.text = "Flashcard: " + flashcardNumber
+            }
+        }
+
+
+
+    }
+    fun splitValue(userResponse: String): List<String> {
+        return userResponse.split("/")
 
     }
 }

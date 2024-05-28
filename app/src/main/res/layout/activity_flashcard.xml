@@ -10,25 +10,27 @@
         android:id="@+id/button_flashcard_flashcard"
         android:layout_width="395dp"
         android:layout_height="332dp"
+        android:layout_marginTop="160dp"
         android:backgroundTint="@color/quizletColor"
         android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText_flashcard_userResponse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:hint="Write flash card value and seperate with /"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/button_flashcard_submit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.755" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_flashcard_submit"
@@ -38,7 +40,63 @@
         android:text="Press When User Response is Done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_flashcard_userResponse"
+        app:layout_constraintVertical_bias="0.73" />
+
+    <ImageButton
+        android:id="@+id/imageButton_flashcard_left"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton_flashcard_right"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_flashcard_submit"
+        app:srcCompat="?attr/homeAsUpIndicator" />
+
+    <ImageButton
+        android:id="@+id/imageButton_flashcard_right"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:rotation="-180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageButton_flashcard_left"
+        app:layout_constraintTop_toBottomOf="@+id/button_flashcard_submit"
+        app:srcCompat="?attr/homeAsUpIndicator" />
+
+    <TextView
+        android:id="@+id/textView_flashcard_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Front"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_flashcard_flashcard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_flashcard_number"
+        android:layout_width="223dp"
+        android:layout_height="56dp"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton_flashcard_left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_flashcard_flashcard"
+        tools:text="Flashcard: 1" />
+
+    <Switch
+        android:id="@+id/switch_flashcard_ai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use AI?"
+        app:layout_constraintBottom_toTopOf="@+id/button_flashcard_submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_flashcard_userResponse" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
