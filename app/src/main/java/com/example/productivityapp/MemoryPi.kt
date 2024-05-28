@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import android.view.View.OnFocusChangeListener
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productivityapp.databinding.ActivityMemoryPiBinding
+import java.io.File
 import java.io.FileNotFoundException
+import java.lang.IllegalArgumentException
 import kotlin.math.max
 
 class MemoryPi : AppCompatActivity() {
@@ -36,6 +39,8 @@ class MemoryPi : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoryPiBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Log.d(TAG, "onCreate: ${intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)}")
 
         //read the text and transfer to textView
         binding.textViewMemoryPiTextMemorize.text =
@@ -82,15 +87,17 @@ class MemoryPi : AppCompatActivity() {
                     newTextToMemorize = input.text.toString()
                     writeToStorage(newTextToMemorize, binding.editTextTextMemoryPiTitle.text.toString())
                     binding.textViewMemoryPiTextMemorize.text = newTextToMemorize
+
+                    fullText = newTextToMemorize
+                    fullTextSplit = fullText.split(regexPunct).toMutableList()
+                    choppedFullText = fullTextSplit.toMutableList()
                 }
             )
             builder.setNegativeButton("Cancel", null)
 
             builder.show()
 
-            fullText = newTextToMemorize
-            fullTextSplit = fullText.split(regexPunct).toMutableList()
-            choppedFullText = fullTextSplit.toMutableList() // copies the list
+             // copies the list
         }
 
 
@@ -122,7 +129,7 @@ class MemoryPi : AppCompatActivity() {
 
             binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
-            Log.d(TAG, "onCreate: $numRemoved")
+            //Log.d(TAG, "onCreate: $numRemoved")
 
         }
 
@@ -150,12 +157,29 @@ class MemoryPi : AppCompatActivity() {
             }
             binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
-            Log.d(TAG, "onCreate: $numRemoved")
+            //Log.d(TAG, "onCreate: $numRemoved")
         }
 
         binding.buttonMemoryPiBack.setOnClickListener {
             finish()
         }
+
+        binding.editTextTextMemoryPiTitle.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                //Do something when EditText has focus
+            } else {
+                // Do something when Focus is not on the EditText
+                //val originalFile =
+                val worked = getFileStreamPath(
+                    intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)
+                        ?: throw IllegalArgumentException("No file found")
+                ).renameTo(File(filesDir.toString() +"/"+ binding.editTextTextMemoryPiTitle.text.toString()+".txt"))
+                Log.d(TAG, "onCreate: $worked")
+            }
+
+
+            Log.d(TAG, "onCreate: ${filesDir.toString() +"/"+ binding.editTextTextMemoryPiTitle.text.toString()}.txt")
+        })
 
     }
 
@@ -165,6 +189,8 @@ class MemoryPi : AppCompatActivity() {
         this.openFileOutput("$fileName.txt", Context.MODE_PRIVATE).use {
             it.write(fileContents.toByteArray())
         }
+
+
     }
 
     private fun hidePunctuation() {
