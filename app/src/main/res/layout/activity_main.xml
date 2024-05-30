@@ -56,7 +56,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="196dp"
         android:layout_marginEnd="16dp"
-        android:text="Quiz AI"
+        android:text="Flashcard"
         android:textColor="@color/primaryText"
         app:iconTint="@color/primaryPurple"
         app:layout_constraintEnd_toEndOf="parent"
