@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,10 +15,12 @@ class MemoryPiFileSelect : AppCompatActivity() {
 
     private lateinit var binding: ActivityMemoryPiFileSelectBinding
 
+    private lateinit var adapter: MemoryPiAdapter
+
     //private var fileListName = mutableListOf<String>()
 
     companion object {
-        //val EXTRA_FILENAME = "nameOfNewFile"
+        val TAG = "MemoryPiFileSelect"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +39,11 @@ class MemoryPiFileSelect : AppCompatActivity() {
 //        fileListName.add(0,"hi")
 
 
-        val files = filesDir.listFiles().filter { it.isFile && it.canRead() && it.name.endsWith(".txt") }
+        val files = filesDir.listFiles().filter { it.isFile && it.canRead() }
             .toMutableList()
 
 
-        val adapter = MemoryPiAdapter(files)
+        adapter = MemoryPiAdapter(files)
         binding.recyclerViewMemoryPiFileSelectFileList.adapter = adapter
         binding.recyclerViewMemoryPiFileSelectFileList.layoutManager = LinearLayoutManager(this)
 
@@ -53,10 +56,14 @@ class MemoryPiFileSelect : AppCompatActivity() {
             builder.setView(input)
 
             builder.setPositiveButton("Save", DialogInterface.OnClickListener {thing, which ->
+                //Log.d(TAG, "onCreate: ${input.text}")
+
                 this.openFileOutput(input.text.toString() + ".txt", Context.MODE_PRIVATE).use {
                     it.write(getString(R.string.fillerText).toByteArray())
                 }
-                adapter.fileList.add(getDir(input.text.toString()+".txt".substring(4), Context.MODE_PRIVATE))
+
+                Log.d(TAG, "onCreate: ${getFileStreamPath(input.text.toString()+".txt")}")
+                adapter.fileList.add(getFileStreamPath(input.text.toString()+".txt"))
                 //adapter.notifyItemInserted(adapter.fileList.size)
                 adapter.notifyDataSetChanged()
             })
@@ -70,5 +77,10 @@ class MemoryPiFileSelect : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapter.notifyDataSetChanged()
     }
 }

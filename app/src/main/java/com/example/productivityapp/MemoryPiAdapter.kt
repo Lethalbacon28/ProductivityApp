@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import java.io.File
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 
 class MemoryPiAdapter(var fileList: MutableList<File>) :
     RecyclerView.Adapter<MemoryPiAdapter.ViewHolder>() {
@@ -48,11 +50,11 @@ class MemoryPiAdapter(var fileList: MutableList<File>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        if (fileList.isNotEmpty()) {
+        //if (fileList.isNotEmpty()) {
             viewHolder.fileName.text = fileName
-        } else {
-            viewHolder.fileName.text = "Nothing here"
-        }
+//        } else {
+//            viewHolder.fileName.text = "Nothing here"
+//        }
 
         val context = viewHolder.layout.context
 
@@ -74,6 +76,13 @@ class MemoryPiAdapter(var fileList: MutableList<File>) :
         }
 
         viewHolder.layout.setOnClickListener {
+
+//            val intent = Intent(context, Activity2.class);
+//            intent.putExtra("id", "1");
+//            intent.putExtra("description", "send description to 2nd activity");
+//            ((Activity) context).startActivityForResult(intent,requestcode:1);
+
+
             val intent = Intent(context, MemoryPi::class.java)
             intent.putExtra(EXTRA_FILENAME, fileName)
             //.substring(fileList[position].name.lastIndexOf("/")+1)
