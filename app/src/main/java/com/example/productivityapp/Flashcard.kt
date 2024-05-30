@@ -106,20 +106,27 @@ class Flashcard : AppCompatActivity() {
 
         }
         binding.imageButtonFlashcardRight.setOnClickListener{
-            if (quizIteration % 2 == 0)
-            {
-                quizIteration += 2
-                binding.buttonFlashcardFlashcard.text = quizValue[quizIteration]
-                binding.textViewFlashcardDirection.text = "Front"
-                flashcardNumber ++
-                binding.textViewFlashcardNumber.text = "Flashcard: " + flashcardNumber + "/" + quizValue.size/2
+            if(quizIteration + 2 < quizValue.size){
+                println("quiz size " + quizValue.size )
+                println("quiziteration " + quizIteration)
+                if (quizIteration % 2 == 0)
+                {
+                    quizIteration += 2
+                    binding.buttonFlashcardFlashcard.text = quizValue[quizIteration]
+                    binding.textViewFlashcardDirection.text = "Front"
+                    flashcardNumber ++
+                    binding.textViewFlashcardNumber.text = "Flashcard: " + flashcardNumber + "/" + quizValue.size/2
+                }
+                else{
+                    quizIteration += 1
+                    binding.buttonFlashcardFlashcard.text = quizValue[quizIteration]
+                    binding.textViewFlashcardDirection.text = "Front"
+                    flashcardNumber ++
+                    binding.textViewFlashcardNumber.text = "Flashcard: " + flashcardNumber + "/" + quizValue.size/2
+                }
             }
             else{
-                quizIteration += 1
-                binding.buttonFlashcardFlashcard.text = quizValue[quizIteration]
-                binding.textViewFlashcardDirection.text = "Front"
-                flashcardNumber ++
-                binding.textViewFlashcardNumber.text = "Flashcard: " + flashcardNumber + "/" + quizValue.size/2
+                finish()
             }
         }
         binding.imageButtonFlashcardLeft.setOnClickListener{
