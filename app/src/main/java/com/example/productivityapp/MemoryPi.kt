@@ -2,6 +2,7 @@ package com.example.productivityapp
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View.OnFocusChangeListener
@@ -11,10 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.productivityapp.databinding.ActivityMemoryPiBinding
 import java.io.File
 import java.io.FileNotFoundException
-import java.lang.IllegalArgumentException
 import kotlin.math.max
 
+
 class MemoryPi : AppCompatActivity() {
+
 
     private lateinit var binding: ActivityMemoryPiBinding
 
@@ -26,8 +28,6 @@ class MemoryPi : AppCompatActivity() {
 
     private var numRemoved = 0
     private var punctRemoved = false
-
-    //val regexPunct = Regex("([?<=\\p{Punct}]|[?=\\p{Punct}])")
 
     val regexPunct = Regex("(?<=[\\p{Punct} &&[^_]&&[^']])|(?=[\\p{Punct} &&[^_]&&[^']])")
 
@@ -97,7 +97,6 @@ class MemoryPi : AppCompatActivity() {
 
             builder.show()
 
-             // copies the list
         }
 
 
@@ -129,7 +128,6 @@ class MemoryPi : AppCompatActivity() {
 
             binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
-            //Log.d(TAG, "onCreate: $numRemoved")
 
         }
 
@@ -148,8 +146,6 @@ class MemoryPi : AppCompatActivity() {
                         }
                     }
                 }
-                //showPunctuation()
-                //binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
             }
             else {
                 hidePunctuation()
@@ -157,7 +153,6 @@ class MemoryPi : AppCompatActivity() {
             }
             binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
-            //Log.d(TAG, "onCreate: $numRemoved")
         }
 
         binding.buttonMemoryPiBack.setOnClickListener {
@@ -169,7 +164,6 @@ class MemoryPi : AppCompatActivity() {
                 //Do something when EditText has focus
             } else {
                 // Do something when Focus is not on the EditText
-                //val originalFile =
                 val worked = getFileStreamPath(
                     intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)
                         ?: throw IllegalArgumentException("No file found")
@@ -184,10 +178,8 @@ class MemoryPi : AppCompatActivity() {
     }
 
     private fun writeToStorage(text: String, fileName: String) {
-//        val filename = getString(R.string.fileName)
-        val fileContents = text
         this.openFileOutput("$fileName.txt", Context.MODE_PRIVATE).use {
-            it.write(fileContents.toByteArray())
+            it.write(text.toByteArray())
         }
 
 

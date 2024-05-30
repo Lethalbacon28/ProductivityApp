@@ -1,5 +1,6 @@
 package com.example.productivityapp
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -9,15 +10,17 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import java.io.File
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+
 
 class MemoryPiAdapter(var fileList: MutableList<File>) :
     RecyclerView.Adapter<MemoryPiAdapter.ViewHolder>() {
 
+
+
     companion object {
         val EXTRA_FILENAME = "fileName"
     }
+
 
     /**
      * Provide a reference to the type of views that you are using
@@ -33,6 +36,9 @@ class MemoryPiAdapter(var fileList: MutableList<File>) :
             layout = view.findViewById(R.id.layout_item_file)
         }
     }
+
+
+
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -50,11 +56,7 @@ class MemoryPiAdapter(var fileList: MutableList<File>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        //if (fileList.isNotEmpty()) {
             viewHolder.fileName.text = fileName
-//        } else {
-//            viewHolder.fileName.text = "Nothing here"
-//        }
 
         val context = viewHolder.layout.context
 
@@ -77,15 +79,14 @@ class MemoryPiAdapter(var fileList: MutableList<File>) :
 
         viewHolder.layout.setOnClickListener {
 
-//            val intent = Intent(context, Activity2.class);
-//            intent.putExtra("id", "1");
-//            intent.putExtra("description", "send description to 2nd activity");
-//            ((Activity) context).startActivityForResult(intent,requestcode:1);
+//            val intent = Intent(context, MemoryPi::class.java)
+//            intent.putExtra(EXTRA_FILENAME, fileName)
+//            (context as Activity).startActivityForResult(intent,1)
+
 
 
             val intent = Intent(context, MemoryPi::class.java)
             intent.putExtra(EXTRA_FILENAME, fileName)
-            //.substring(fileList[position].name.lastIndexOf("/")+1)
             context.startActivity(intent)
         }
     }
@@ -99,11 +100,11 @@ class MemoryPiAdapter(var fileList: MutableList<File>) :
     private fun delete(position: Int) {
         fileList[position].delete()
         fileList.removeAt(position)
-        //notifyItemRemoved(position)
         notifyDataSetChanged()
     }
 
-
 }
+
+
 
 
