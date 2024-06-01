@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import com.example.productivityapp.databinding.ActivityFlashcardBinding
@@ -45,10 +46,10 @@ class Flashcard : AppCompatActivity() {
             if(binding.switchFlashcardAi.isChecked) {
                 Log.d("Flashcard", binding.switchFlashcardAi.isChecked.toString())
 //                val prompt =
-//                    "In the prompt I give you, can you subsitute all spaces used for /. Here is the prompt $userResponse"
-                val prompt = "Create a set of flash cards based on the text given and format it where every term and definition and term is seperated by a /. DO NOT add extra text and only place the words that you are given with a / to seperate the term and definition. For example, if you were given" +
+//                    "In the prompt I give you, can you substitute all spaces used for /. Here is the prompt $userResponse"
+                val prompt = "Create a set of flash cards based on the text given and format it where every term and definition and term is separated by a /. DO NOT add extra text and only place the words that you are given with a / to separate the term and definition. For example, if you were given" +
                         " 'invertir   to invest     la bolsa de valores      stock market' then you would write invertir/to invest/la bolsa de valores/stock market. Here is the prompt $userResponse"
-                  //  "Can you create a list for flashcards based on the given text and seperate each definition and term with a /" + userResponse
+                  //  "Can you create a list for flashcards based on the given text and separate each definition and term with a /" + userResponse
                 MainScope().launch {
                     response = generativeModel.generateContent(prompt)
                     userResponse = response.text.toString()
@@ -149,6 +150,19 @@ class Flashcard : AppCompatActivity() {
         binding.buttonFlashcardBack.setOnClickListener{
             finish()
         }
+        binding.imageViewFlashcardInfo.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("How this works")
+
+            builder.setMessage("Begin creating flashcards by typing in the given text box below. Add a / to each definition and term and next definition. \n\n" +
+                    "For example, Cat El Gato Dog El Perro Monkey El Mono would be formatted as Cat/El Gato/Dog/El Perro/Monkey/El Mono \n\n" +
+                    "Now if this is too much work for you, you may hit the AI switch button which will format it into the proper formatting without needing to add /. However, depending on the original format of the text, it is more prone to error than the previous selection.")
+
+            builder.setPositiveButton("Okay",null)
+
+            builder.show()
+        }
+
 
 
 
