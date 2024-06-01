@@ -2,10 +2,10 @@ package com.example.productivityapp
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View.OnFocusChangeListener
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +29,7 @@ class MemoryPi : AppCompatActivity() {
     private var numRemoved = 0
     private var punctRemoved = false
 
-    val regexPunct = Regex("(?<=[\\p{Punct} &&[^_]&&[^']])|(?=[\\p{Punct} &&[^_]&&[^']])")
+    private val regexPunct = Regex("(?<=[\\p{Punct} &&[^_]&&[^']])|(?=[\\p{Punct} &&[^_]&&[^']])")
 
     companion object {
         val TAG = "memoryPi"
@@ -45,19 +45,21 @@ class MemoryPi : AppCompatActivity() {
         //read the text and transfer to textView
         binding.textViewMemoryPiTextMemorize.text =
             try {
-            this@MemoryPi.openFileInput(intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)?: "noFileFound.txt").bufferedReader()
-                .useLines { lines ->
-                    lines.fold("") { some, text ->
-                        "$some\n$text"
+                this@MemoryPi.openFileInput(intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME))
+                    .bufferedReader().useLines { lines ->
+                        lines.fold("") { some, text ->
+                            "$some\n$text"
+                        }
                     }
-                }
-        } catch (e: FileNotFoundException) {
-            Log.d(TAG, "onCreate: File DNE")
+            } catch (e: FileNotFoundException) {
+                Log.d(TAG, "onCreate: File DNE")
 
-            getString(R.string.fillerText)
-        }
+                getString(R.string.fillerText)
+            }
 
-        binding.editTextTextMemoryPiTitle.setText(intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME).toString().removeSuffix(".txt"))
+        binding.editTextTextMemoryPiTitle.setText(
+            intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME).toString().removeSuffix(".txt")
+        )
 
         //Initialize vars that hold different versions of the text
         fullText = binding.textViewMemoryPiTextMemorize.text.toString()
@@ -100,17 +102,13 @@ class MemoryPi : AppCompatActivity() {
         }
 
 
-
         // Add letters back to the text
         binding.buttonMemoryPiAddLetter.setOnClickListener {
             if (punctRemoved) {
                 showPunctuation()
                 punctRemoved = false
-            }
-            else if (numRemoved>0) {
-
+            } else if (numRemoved > 0) {
                 numRemoved--
-
                 //consider refactoring this code into its own method
                 for (i in choppedFullText.indices) {
                     if (!choppedFullText[i].contains(regexPunct)) {
@@ -124,7 +122,6 @@ class MemoryPi : AppCompatActivity() {
                 }
 
             }
-
 
             binding.textViewMemoryPiTextMemorize.text = choppedFullText.joinToString("")
 
@@ -146,8 +143,7 @@ class MemoryPi : AppCompatActivity() {
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 hidePunctuation()
                 punctRemoved = true
             }
@@ -159,21 +155,28 @@ class MemoryPi : AppCompatActivity() {
             finish()
         }
 
-        binding.editTextTextMemoryPiTitle.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                //Do something when EditText has focus
-            } else {
-                // Do something when Focus is not on the EditText
-                val worked = getFileStreamPath(
-                    intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)
-                        ?: throw IllegalArgumentException("No file found")
-                ).renameTo(File(filesDir.toString() +"/"+ binding.editTextTextMemoryPiTitle.text.toString()+".txt"))
-                Log.d(TAG, "onCreate: $worked")
+        binding.editTextTextMemoryPiTitle.onFocusChangeListener =
+            OnFocusChangeListener { v, hasFocus ->
+                if (hasFocus) {
+                    //Do something when EditText has focus
+                } else {
+                    // Do something when Focus is not on the EditText
+                    val worked = getFileStreamPath(
+                        intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)
+                            ?: throw IllegalArgumentException("No file found")
+                    ).renameTo(File(filesDir.toString() + "/" + binding.editTextTextMemoryPiTitle.text.toString() + ".txt"))
+                    Log.d(TAG, "onCreate: $worked")
+
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                    imm?.hideSoftInputFromWindow(binding.editTextTextMemoryPiTitle.windowToken, 0)
+                }
+
+
+                Log.d(
+                    TAG,
+                    "onCreate: ${filesDir.toString() + "/" + binding.editTextTextMemoryPiTitle.text.toString()}.txt"
+                )
             }
-
-
-            Log.d(TAG, "onCreate: ${filesDir.toString() +"/"+ binding.editTextTextMemoryPiTitle.text.toString()}.txt")
-        })
 
     }
 
@@ -181,8 +184,6 @@ class MemoryPi : AppCompatActivity() {
         this.openFileOutput("$fileName.txt", Context.MODE_PRIVATE).use {
             it.write(text.toByteArray())
         }
-
-
     }
 
     private fun hidePunctuation() {

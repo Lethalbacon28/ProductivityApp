@@ -20,8 +20,6 @@ class MemoryPiFileSelect : AppCompatActivity() {
 
     private lateinit var files: MutableList<File>
 
-    //private var fileListName = mutableListOf<String>()
-
     companion object {
         val TAG = "MemoryPiFileSelect"
     }
@@ -70,7 +68,7 @@ class MemoryPiFileSelect : AppCompatActivity() {
             builder.setTitle("How this works")
 
             builder.setMessage("Click on a text to open it and start memorizing! \n\n" +
-                    "The refresh button (bottom right): Manually refreshes the list if something hasn\'t updated \n\n" +
+                    "The refresh button (bottom left): Manually refreshes the list if something hasn\'t updated \n\n" +
                     "The pencil button: Create a new text to memorize")
 
             builder.setPositiveButton("Okay",null)
