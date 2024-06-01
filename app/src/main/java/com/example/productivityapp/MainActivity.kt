@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
 
 //if you guys wanna do this
+        /*
         object : CountDownTimer(30000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 TODO("Not yet implemented")
@@ -56,5 +57,7 @@ class MainActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         }
+
+         */
     }
 }
