@@ -2,6 +2,7 @@ package com.example.productivityapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import com.example.productivityapp.databinding.ActivityMainBinding
 import java.io.File
@@ -10,7 +11,13 @@ import java.io.File
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+
+    var timerLength = 0
+    var tickLength = 1000
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,5 +45,16 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
+//if you guys wanna do this
+        object : CountDownTimer(30000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onFinish() {
+                TODO("Not yet implemented")
+            }
+        }
     }
 }
