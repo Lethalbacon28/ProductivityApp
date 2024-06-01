@@ -9,6 +9,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_memoryPiFileSelect_fileList"
+        android:textColor="@color/primaryText"
+        android:fontFamily="@font/poppins"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,6 +21,8 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton_memoryPiFileSelect_newFile"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/primaryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -31,6 +35,8 @@
 
     <TextView
         android:id="@+id/textView_memoryPiFileSelect_title"
+        android:textColor="@color/primaryText"
+        android:fontFamily="@font/poppins"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -43,6 +49,7 @@
 
     <Button
         android:id="@+id/button_memoryPiFileSelect_back"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -53,6 +60,8 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton_memoryPiFileSelect_refresh"
+        android:textColor="@color/primaryText"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -64,6 +73,7 @@
 
     <ImageView
         android:id="@+id/imageView_memoryPiFileSelect_info"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"

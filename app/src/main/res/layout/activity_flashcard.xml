@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/button_flashcard_back"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -23,7 +24,9 @@
         android:layout_height="332dp"
         android:layout_marginTop="160dp"
         android:backgroundTint="@color/quizletColor"
+        android:fontFamily="@font/poppins"
         android:text="Button"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +34,7 @@
 
     <EditText
         android:id="@+id/editText_flashcard_userResponse"
+        android:fontFamily="@font/poppins"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
@@ -45,6 +49,7 @@
 
     <Button
         android:id="@+id/button_flashcard_submit"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="184dp"
@@ -80,6 +85,7 @@
 
     <TextView
         android:id="@+id/textView_flashcard_direction"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Front"
@@ -91,8 +97,10 @@
 
     <TextView
         android:id="@+id/textView_flashcard_number"
-        android:layout_width="261dp"
-        android:layout_height="76dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins"
         android:textAlignment="center"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/imageButton_flashcard_left"
@@ -103,6 +111,7 @@
 
     <Switch
         android:id="@+id/switch_flashcard_ai"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Use AI?"

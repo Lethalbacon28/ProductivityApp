@@ -9,6 +9,7 @@
 
     <TextView
         android:id="@+id/textView_gradeCalculator_appTitle"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -24,6 +25,7 @@
 
     <TextView
         android:id="@+id/textView_gradeCalculator_appDescription"
+        android:fontFamily="@font/poppins"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -40,6 +42,7 @@
 
     <EditText
         android:id="@+id/editText_gradeCalculator_currentGrade"
+        android:fontFamily="@font/poppins"
         android:textColorHint="@color/hintText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,6 +58,7 @@
 
     <EditText
         android:id="@+id/editText_gradeCalculator_gradeWanted"
+        android:fontFamily="@font/poppins"
         android:textColorHint="@color/hintText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,6 +74,7 @@
 
     <EditText
         android:textColorHint="@color/hintText"
+        android:fontFamily="@font/poppins"
         android:id="@+id/editText_gradeCalculator_finalGradeWorth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,6 +90,7 @@
 
     <Button
         android:id="@+id/button_gradeCalculator_calculate"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
@@ -97,6 +103,7 @@
 
     <Button
         android:id="@+id/button_gradeCalculator_back"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"

@@ -65,7 +65,7 @@ class MemoryPiFileSelect : AppCompatActivity() {
             resetList()
         }
 
-        binding.imageView.setOnClickListener {
+        binding.imageViewMemoryPiFileSelectInfo.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("How this works")
 

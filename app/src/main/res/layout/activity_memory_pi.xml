@@ -10,6 +10,8 @@
 
     <TextView
         android:id="@+id/textView_memoryPi_textMemorize"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/primaryText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textSize="16sp"
@@ -31,35 +33,46 @@
         android:id="@+id/button_memoryPi_removeLetter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:fontFamily="@font/poppins"
         android:text="@string/removeLetter"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_memoryPi_editText"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button_memoryPi_addLetter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:fontFamily="@font/poppins"
         android:text="@string/addLetter"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_memoryPi_editText"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/button_memoryPi_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
         android:text="@string/editText"
+        android:textSize="12sp"
         app:icon="@android:drawable/ic_menu_edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_memoryPi_addLetter"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_memoryPi_removeLetter"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -70,6 +83,7 @@
 
     <Button
         android:id="@+id/button_memoryPi_back"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -81,6 +95,7 @@
 
     <EditText
         android:id="@+id/editTextText_memoryPi_title"
+        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
