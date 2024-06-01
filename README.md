@@ -1,6 +1,5 @@
 I have no idea what I am doing.
 
-Making some notes:
-Use Regex and lookahead
-https://stackoverflow.com/questions/37131283/how-to-split-a-string-and-plant-the-delimiters-between-the-splitted-parts-in-kot
+Productivity app has four main components to it. First, we have an app similar to memoryPie to help the user memorize sentences. A flashcard app enhanced with AI features to help the user smoothly memorize terms. A grade calculator for those curious about what they need on the final to get a certain overall grade. Finally, a Pomodomo timer helps users be more productive and spend their time efficiently. These mini-apps will help the user be more productive, have better studying habits, and understand what they need on tests to succeed.
 
+Alas, we still have no idea what we are doing.

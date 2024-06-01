@@ -118,6 +118,18 @@
         app:layout_constraintBottom_toTopOf="@+id/button_flashcard_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_flashcard_userResponse" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_flashcard_userResponse"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <ImageView
+        android:id="@+id/imageView_flashcard_info"
+        android:layout_width="51dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/poppins"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_info_details" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
