@@ -8,12 +8,23 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/button_main_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_main_start"
+        app:layout_constraintTop_toBottomOf="@+id/textView_main_time" />
+
+    <Button
         android:id="@+id/button_mainActivity_memoryPi"
-        android:fontFamily="@font/poppins"
         android:layout_width="189dp"
         android:layout_height="129dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="196dp"
+        android:fontFamily="@font/poppins"
         android:text="MemoryPi"
         android:textColor="@color/primaryText"
         app:layout_constraintEnd_toStartOf="@+id/button_mainActivity_quiz"
@@ -23,11 +34,11 @@
 
     <Button
         android:id="@+id/button_mainActivity_gradeCalc"
-        android:fontFamily="@font/poppins"
         android:layout_width="187dp"
         android:layout_height="129dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="276dp"
+        android:fontFamily="@font/poppins"
         android:text="Grade Calculator"
         android:textColor="@color/primaryText"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,11 +49,11 @@
 
     <Button
         android:id="@+id/button_main_chronometer"
-        android:fontFamily="@font/poppins"
         android:layout_width="187dp"
         android:layout_height="129dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins"
         android:text="Chronometer"
         android:textColor="@color/primaryText"
         app:iconTint="@color/primaryPurple"
@@ -54,12 +65,12 @@
 
     <Button
         android:id="@+id/button_mainActivity_quiz"
-        android:fontFamily="@font/poppins"
         android:layout_width="189dp"
         android:layout_height="129dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="196dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins"
         android:text="Flashcard"
         android:textColor="@color/primaryText"
         app:iconTint="@color/primaryPurple"
@@ -70,15 +81,51 @@
 
     <TextView
         android:id="@+id/textView_main_title"
-        android:textColor="@color/primaryText"
-        android:fontFamily="@font/poppins"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
         android:text="Productivity App"
+        android:textColor="@color/primaryText"
         android:textSize="36dp"
         app:layout_constraintBottom_toTopOf="@+id/button_mainActivity_memoryPi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_main_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_mainActivity_gradeCalc" />
+
+    <Button
+        android:id="@+id/button_main_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="start/stop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_main_reset"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_main_time" />
+
+    <EditText
+        android:id="@+id/editTextText_main_enterTimeMillis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter time in minutes"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/textView_main_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_mainActivity_gradeCalc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

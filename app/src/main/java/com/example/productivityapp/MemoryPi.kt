@@ -165,17 +165,10 @@ class MemoryPi : AppCompatActivity() {
                         intent.getStringExtra(MemoryPiAdapter.EXTRA_FILENAME)
                             ?: throw IllegalArgumentException("No file found")
                     ).renameTo(File(filesDir.toString() + "/" + binding.editTextTextMemoryPiTitle.text.toString() + ".txt"))
-                    Log.d(TAG, "onCreate: $worked")
 
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                     imm?.hideSoftInputFromWindow(binding.editTextTextMemoryPiTitle.windowToken, 0)
                 }
-
-
-                Log.d(
-                    TAG,
-                    "onCreate: ${filesDir.toString() + "/" + binding.editTextTextMemoryPiTitle.text.toString()}.txt"
-                )
             }
 
     }
