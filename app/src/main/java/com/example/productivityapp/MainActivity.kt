@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 val secTillFinish  = millisUntilFinished/1000
                 binding.textViewMainTime.text = "${secTillFinish/3600}:${(secTillFinish%3600)/60}:${secTillFinish % 60}"
-                timeLeftOnTimer = millisUntilFinished
+                timeLeftOnTimer = millisUntilFinished // hides the keyboard when u pressed enter
             }
 
             override fun onFinish() {
