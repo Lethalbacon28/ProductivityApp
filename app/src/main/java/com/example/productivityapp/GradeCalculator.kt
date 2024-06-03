@@ -2,6 +2,7 @@ package com.example.productivityapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import androidx.appcompat.app.AlertDialog
 import com.example.productivityapp.databinding.ActivityGradeCalculatorBinding
 
@@ -13,7 +14,9 @@ class GradeCalculator : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityGradeCalculatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.editTextGradeCalculatorCurrentGrade.setInputType(InputType.TYPE_CLASS_NUMBER)
+        binding.editTextGradeCalculatorFinalGradeWorth.setInputType(InputType.TYPE_CLASS_NUMBER)
+        binding.editTextGradeCalculatorGradeWanted.setInputType(InputType.TYPE_CLASS_NUMBER)
         binding.buttonGradeCalculatorCalculate.setOnClickListener{
 
             val currentGrade = if(binding.editTextGradeCalculatorCurrentGrade.text.toString() != "") binding.editTextGradeCalculatorCurrentGrade.text.toString().toDouble() else 0.0

@@ -1,6 +1,7 @@
 package com.example.productivityapp
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private var timeLeftOnTimer = 0L
     private var timerTimeSec = 1500L
+    var mp = MediaPlayer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -69,13 +71,13 @@ class MainActivity : AppCompatActivity() {
             if (!isTimerRunning) {
                 isTimerRunning = true
                 timer.start()
-                binding.buttonMainStart.text = getString(R.string.start)
+                binding.buttonMainStart.text = getString(R.string.stop)
             }
             else {
                 isTimerRunning = false
                 timer.cancel()
                 newTimer(timeLeftOnTimer)
-                binding.buttonMainStart.text = getString(R.string.stop)
+                binding.buttonMainStart.text = getString(R.string.start)
             }
         }
 
@@ -102,6 +104,8 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Break time", Toast.LENGTH_SHORT).show()
                 newBreakTimer(timerTimeSec*1000/5)
                 binding.buttonMainStart.isEnabled = false
+                mp = MediaPlayer.create(this@MainActivity, R.raw.ringtone)
+                mp.start()
             }
 
         }
@@ -121,6 +125,7 @@ class MainActivity : AppCompatActivity() {
                 newTimer(timerTimeSec*1000)
                 binding.buttonMainStart.isEnabled = true
                 timer.start()
+                mp.start()
             }
         }.start()
         binding.buttonMainStart.text = getString(R.string.stop)
